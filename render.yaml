@@ -3,18 +3,21 @@ services:
   - type: web
     name: nocodb
     env: docker
-    dockerfilePath: ./nocodb/Dockerfile # optional
+    autoDeploy: false
+    dockerfilePath: "./nocodb/Dockerfile"
     region: oregon # optional (defaults to oregon)
     #plan: standard # optional (defaults to starter)
     #branch: master # optional (uses repo default)
     #dockerCommand: ./webdis.sh # optional (defaults to Dockerfile command)
     #numInstances: 3 # optional (defaults to 1)
-    healthCheckPath: /
+    healthCheckPath: /dashboard
     envVars:
       - key: NC_DB
         fromDatabase:
           name: evangel
           property: connectionString
+      - key: PORT
+        value: 8080
       # - key: REDIS_PORT
       #   fromService:
       #     name: redis
@@ -101,7 +104,7 @@ databases:
   - name: evangel
     # databaseName: default # optional (Render may add a suffix)
     user: jmart # optional
-    ipAllowList: [] # optional (defaults to allow all)
+    #ipAllowList: [] # optional (defaults to allow all)
       # - source: 203.0.113.4/30
       #   description: office
       # - source: 198.51.100.1
