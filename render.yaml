@@ -3,13 +3,8 @@ services:
   - type: web
     name: nocodb
     env: docker
-    autoDeploy: false
     dockerfilePath: "./nocodb/Dockerfile"
     region: oregon # optional (defaults to oregon)
-    #plan: standard # optional (defaults to starter)
-    #branch: master # optional (uses repo default)
-    #dockerCommand: ./webdis.sh # optional (defaults to Dockerfile command)
-    #numInstances: 3 # optional (defaults to 1)
     healthCheckPath: /dashboard
     envVars:
       - key: NC_DB
@@ -18,12 +13,20 @@ services:
           property: connectionString
       - key: PORT
         value: 8080
-      # - key: REDIS_PORT
-      #   fromService:
-      #     name: redis
-      #     type: pserv
-      #     property: port
-      # - fromGroup: conc-settings
+  - type: web
+    name: minio
+    healthCheckPath: /minio/health/live
+    env: docker
+    dockerfilePath: ./minio/Dockerfile
+    dockerContext: ./minio/
+    disk:
+      name: data
+      mountPath: /data
+    envVars:
+      - key: MINIO_ROOT_USER
+        generateValue: true
+      - key: MINIO_ROOT_PASSWORD
+        generateValue: true
   # # A private Redis instance
   # - type: pserv
   #   name: redis
