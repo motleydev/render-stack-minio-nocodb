@@ -18,7 +18,7 @@ services:
     name: minio
     env: docker
     dockerfilePath: ./minio/Dockerfile
-    dockerContext: ./minio/
+    dockerContext: ./minio
     disk:
       name: data
       mountPath: /data
