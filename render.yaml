@@ -16,13 +16,13 @@ services:
         value: 8080
   - type: web
     name: minio
-    healthCheckPath: /minio/health/live
     env: docker
     dockerfilePath: ./minio/Dockerfile
     dockerContext: ./minio/
     disk:
       name: data
       mountPath: /data
+    healthCheckPath: /minio/health/live
     envVars:
       - key: MINIO_ROOT_USER
         generateValue: true
