@@ -1,5 +1,5 @@
 FROM minio/minio:latest
 
-COPY entrypoint.sh /opt/render/entrypoint.sh
+COPY ./entrypoint.sh /opt/render/entrypoint.sh
 
 ENTRYPOINT ["/opt/render/entrypoint.sh"]

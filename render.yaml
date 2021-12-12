@@ -6,6 +6,7 @@ services:
     dockerfilePath: "./nocodb/Dockerfile"
     region: oregon # optional (defaults to oregon)
     healthCheckPath: /dashboard
+    autoDeploy: false
     envVars:
       - key: DATABASE_URL
         fromDatabase:
@@ -18,7 +19,7 @@ services:
     healthCheckPath: /minio/health/live
     env: docker
     dockerfilePath: ./minio/Dockerfile
-    dockerContext: ./minio/
+    dockerContext: ./minio/.
     disk:
       name: data
       mountPath: /data
